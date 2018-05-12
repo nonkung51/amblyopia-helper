@@ -1,4 +1,5 @@
-from .tesseract import text_from_image_file
+import pytesseract
+from PIL import Image
 
 import os
 
@@ -16,7 +17,7 @@ def translate(text):
 
 def ocr(name):
     print('requesting OCR...')
-    return text_from_image_file(name, 'tha')
+    return pytesseract.image_to_string(Image.open(image_name), lang='tha')
 
 def mbn(name):
     print('requesting...')
