@@ -17,7 +17,7 @@ def translate(text):
 
 def ocr(name):
     print('requesting OCR...')
-    return pytesseract.image_to_string(Image.open(image_name), lang='tha')
+    return pytesseract.image_to_string(Image.open(name), lang='tha')
 
 def mbn(name):
     print('requesting...')
