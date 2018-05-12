@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import ImageSerializer
 
+from django.http import HttpResponse
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
@@ -23,6 +24,9 @@ def mbn(name):
     out = os.popen(console).readlines()[0]
 
     return out
+
+def Home(request):
+    return HttpResponse('<h1>it\'s working!</h1>')
 
 class predictAPIView(APIView):
     def get(self, request):
