@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.Home),
-    url(r'^api/$', views.predictAPIView.as_view()),
+    url(r'^ocr/$', views.predictOcrAPIView.as_view()),
+    url(r'^mbn/$', views.predictMbnAPIView.as_view())
 ]

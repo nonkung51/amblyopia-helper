@@ -29,7 +29,7 @@ def mbn(name):
 def Home(request):
     return HttpResponse('<h1>it\'s working!</h1>')
 
-class predictAPIView(APIView):
+class predictOcrAPIView(APIView):
     def get(self, request):
         return Response([])
     def post(self, request):
@@ -38,8 +38,23 @@ class predictAPIView(APIView):
             img = request.data['image']
             path = default_storage.save('temp.jpg', ContentFile(img.read()))
             tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+            print('OCR is working..')
             ocr_ = ocr(tmp_file)
+            os.remove(tmp_file)
+            return Response({'OCR': ocr_})
+        return Response({'Success': 0})
+
+class predictMbnAPIView(APIView):
+    def get(self, request):
+        return Response([])
+    def post(self, request):
+        serializer = ImageSerializer(data=request.data)
+        if serializer.is_valid():
+            img = request.data['image']
+            path = default_storage.save('temp.jpg', ContentFile(img.read()))
+            tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+            print('Getting in network...')
             mbn_ = mbn(tmp_file)
             os.remove(tmp_file)
-            return Response({'OCR': ocr_, 'MBN': mbn_})
+            return Response({'MBN': mbn_})
         return Response({'Success': 0})
