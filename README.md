@@ -11,5 +11,7 @@
 
 # สามารถทดลองข้อมูลได้ด้วยวิธีการดังนี้
 https://amblyopia-helper.herokuapp.com
+
 `POST /mbn/` สำหรับ request การทำนายจาก mobilenet
+
 `POST /ocr/` สำหรับ request การทำนายจาก tesseract-ocr
