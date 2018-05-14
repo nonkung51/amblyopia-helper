@@ -17,7 +17,7 @@ SECRET_KEY = 'bn_+d5qsq^dh(cz!kjl@t-c=lw@1v(6dm$_4pe&0pos6$kq+fj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['amblyopia-helper.herokuapp.com']
+ALLOWED_HOSTS = ['amblyopia-helper.herokuapp.com', '127.0.0.1']
 
 
 # Application definition

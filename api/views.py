@@ -22,7 +22,7 @@ def ocr(name):
 def mbn(name):
     print('requesting...')
     console = 'python3 api/mbn.py mbn \'{0}\''.format(name)
-    out = os.popen(console).readlines()[0]
+    out = os.popen(console).readlines()[0][0:-1]
 
     return out
 
