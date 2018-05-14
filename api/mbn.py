@@ -1,18 +1,16 @@
 from keras.preprocessing import image
 from keras.applications.mobilenet import (preprocess_input, MobileNet,
                                           decode_predictions)
-from keras.applications import mobilenet
 from keras.models import load_model
 import numpy as np
 import pickle, fire
 
 dictionary = pickle.load(open('dict.p', 'rb'))
 
-model = load_model('mobilenet.h5', custom_objects={
-                   'relu6': mobilenet.relu6,
-                   'DepthwiseConv2D': mobilenet.DepthwiseConv2D})
-
-model.load_weights('my_model_weights.h5')
+model = MobileNet(input_shape=None, alpha=1.0, depth_multiplier=1,
+                  dropout=1e-3, include_top=True,
+                  weights='imagenet', input_tensor=None,
+                  pooling=None, classes=1000)
 
 class MobileNet():
     def mbn(self, name):
