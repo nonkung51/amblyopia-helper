@@ -12,19 +12,37 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
 
-def translate(text):
-    return dictionary[text]
+from keras.preprocessing import image
+from keras.applications.mobilenet import (preprocess_input, MobileNet,
+                                          decode_predictions)
+import numpy as np
+import pickle
+
+global model
+model = MobileNet(input_shape=None, alpha=1.0, depth_multiplier=1,
+                  dropout=1e-3, include_top=True,
+                  weights='imagenet', input_tensor=None,
+                  pooling=None, classes=1000)
+model._make_predict_function()
 
 def ocr(name):
     print('requesting OCR...')
     return pytesseract.image_to_string(Image.open(name), lang='tha')
 
 def mbn(name):
-    print('requesting...')
-    console = 'python3 api/mbn.py mbn \'{0}\''.format(name)
-    out = os.popen(console).readlines()[0][0:-1]
+    print('requesting MBN...')
+    dictionary = pickle.load(open('dict.p', 'rb'))
+    img_path = name
+    img = image.load_img(img_path, target_size=(224, 224))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
 
-    return out
+    x = preprocess_input(x)
+    features = model.predict(x)
+    preds = decode_predictions(features, top=1)[0]
+    english_prediction = preds[0][1]
+
+    return dictionary[english_prediction]
 
 def Home(request):
     return HttpResponse('<h1>it\'s working!</h1>')
